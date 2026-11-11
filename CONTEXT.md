@@ -22,8 +22,8 @@ Lectura complementaria:
 
 ## 2. Estado actual
 
-**Fase: 🚧 diseño de la arquitectura. Sección de usuarios implementada y probada;
-declaraciones en diseño.**
+**Fase: 🚧 diseño de la arquitectura. Sección de usuarios refinada (autenticación simple +
+datos 1:1 + sesión de 35 minutos); declaraciones en diseño.**
 
 Terminado:
 
@@ -35,9 +35,11 @@ Terminado:
   `seguridad.administrador`, más `seguridad.token_usuario`.
 - [x] Migración `0004_auditoria.sql`: auditoría genérica por triggers
   (`auditoria.registro_evento`), sin material sensible.
+- [x] Migración `0005_refactor_usuarios_datos.sql`: tablas 1:1 de datos personales/contacto/sesión,
+  migración de datos existentes, eliminación de columnas redundantes, sesión ≤ 35 minutos.
 - [x] Pruebas `pruebas/0001_usuarios.sql` en verde (verificadas contra PostgreSQL 16.15).
 
-**Última migración aplicable: `0004_auditoria.sql`.** La siguiente debe llamarse `0005_*.sql`.
+**Última migración aplicable: `0005_refactor_usuarios_datos.sql`.** La siguiente debe llamarse `0006_*.sql`.
 
 Pendiente (en orden de ejecución):
 
@@ -54,9 +56,11 @@ Pendiente (en orden de ejecución):
 | Motor de BD | PostgreSQL 16+ | `AGENTS.md` §2 |
 | Esquemas | `patrimonial`, `catalogos`, `seguridad`, `auditoria` | `AGENTS.md` §5 |
 | Usuarios | **Dos tablas separadas**: `funcionario` y `administrador` | `migraciones/0003_usuarios.sql` |
+| Datos personales | Tabla 1:1 (`funcionario_datos`, `administrador_datos`) | `migraciones/0005_refactor_usuarios_datos.sql` |
+| Sesión | Duración máxima **35 minutos**, validada por `CHECK`; renovación por token | `migraciones/0005_refactor_usuarios_datos.sql` |
 | Trámites | 5 tipos en `catalogos.tipo_declaracion` | `migraciones/0002_catalogos.sql` |
 | Autenticación | `password_hash` + tokens de un solo uso (guardados como hash) | `migraciones/0003_usuarios.sql` |
-| Auditoría | Triggers AFTER, sin `password_hash` ni `token_hash` | `migraciones/0004_auditoria.sql` |
+| Auditoría | Triggers AFTER, sin `password_hash`, `token_hash` ni `token_sesion_hash` | `migraciones/0004_auditoria.sql` y `0005` |
 | Nomenclatura | `snake_case`, español, tablas en singular, PK `bigint identity` | `AGENTS.md` §6 |
 | Dinero | `NUMERIC(18,2)` + FK a `catalogos.moneda` (nunca `float`) | `AGENTS.md` §6 |
 | Migraciones | **Fuente de verdad ejecutable** | `docs/adr/001-migraciones-fuente-de-verdad.md` |
@@ -85,7 +89,7 @@ git push origin main
 ## 5. Cómo continuar una sesión
 
 1. Lee este archivo y `AGENTS.md`.
-2. Revisa el último número de migración en `migraciones/` (hoy: `0004_auditoria.sql`).
+2. Revisa el último número de migración en `migraciones/` (hoy: `0005_refactor_usuarios_datos.sql`).
 3. Toma el primer pendiente de §2, propón el plan al usuario y confirma antes de ejecutar.
 
 ## 6. Reglas de mantenimiento de este archivo

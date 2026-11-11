@@ -154,7 +154,7 @@ docker compose exec db psql -U declaranet -d declaranet
 - [x] Repositorio, README y ambiente local Docker
 - [x] Archivo de contexto para retomar sesiones (`CONTEXT.md`, auto-cargado vía `opencode.jsonc`)
 - [x] Modelo conceptual de la sección de usuarios (`docs/modelo-conceptual.md`)
-- [x] Migraciones `0001`–`0004`: base, catálogos, usuarios (funcionarios y administradores) y auditoría
+- [x] Migraciones `0001`–`0005`: base, catálogos, usuarios (funcionarios y administradores), auditoría y datos de sesión (35 min)
 - [x] Pruebas de la sección de usuarios en verde (`pruebas/0001_usuarios.sql`)
 - [ ] Nombramientos, dependencias y puestos
 - [ ] Declaraciones (5 tipos de trámite), folio y acuse

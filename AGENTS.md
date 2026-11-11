@@ -127,6 +127,8 @@ declaraciones-patrimoniales/
 - RLS obligatorio en tablas con datos personales; la aplicación nunca conecta
   con superusuario.
 - Particionamiento por año fiscal para tablas de alto volumen (anexos, bitácora).
+- Sesiones: duración máxima de **35 minutos**, validada por `CHECK` en las tablas de
+  datos (`funcionario_datos`, `administrador_datos`); la renovación se gestiona por token.
 
 ## 7. Convenciones de migraciones
 
