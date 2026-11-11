@@ -85,10 +85,12 @@ erDiagram
 
 ```
 base-de-datos-declaranet/
-├── AGENTS.md                  # Convenciones y reglas del proyecto (léelo primero)
+├── AGENTS.md                  # Convenciones y reglas del proyecto (obligatorio antes de tocar SQL)
+├── CONTEXT.md                 # 📍 Punto de partida: estado, decisiones y siguiente paso
 ├── README.md
 ├── docker-compose.yml         # PostgreSQL 16 para desarrollo local
 ├── .env.example               # Plantilla de variables de entorno
+├── opencode.jsonc             # Config OpenCode: auto-carga de CONTEXT.md en cada sesión
 ├── docs/
 │   ├── erd/                  # Diagramas entidad-relación
 │   └── adr/                  # Decisiones de arquitectura (ADR-NNN-*.md)
@@ -143,6 +145,7 @@ docker compose exec db psql -U declaranet -d declaranet
 
 - [x] Convenciones del proyecto y decisión de motor (`AGENTS.md`)
 - [x] Repositorio, README y ambiente local Docker
+- [x] Archivo de contexto para retomar sesiones (`CONTEXT.md`, auto-cargado vía `opencode.jsonc`)
 - [ ] Modelo conceptual (`docs/modelo-conceptual.md`)
 - [ ] Modelo lógico y diagramas ER completos
 - [ ] `sql/00_base`: extensiones, esquemas, roles y dominios de datos

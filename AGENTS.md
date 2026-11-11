@@ -3,6 +3,9 @@
 Instrucciones y convenciones para agentes de IA (y humanos) que trabajan en este repositorio.
 **Lee este archivo completo antes de modificar cualquier cosa.**
 
+> 📍 **Punto de partida:** consulta [`CONTEXT.md`](CONTEXT.md) — estado actual del proyecto,
+> decisiones tomadas y siguiente paso concreto. Se actualiza al cierre de cada sesión.
+
 ---
 
 ## 1. Propósito del proyecto
@@ -148,6 +151,8 @@ declaraciones-patrimoniales/
 
 ## 10. Flujo de trabajo del agente
 
+- Comienza leyendo `CONTEXT.md` (estado actual y siguiente paso) y manténlo actualizado
+  al cerrar la sesión.
 - Antes de tocar `sql/` o `migraciones/`, identifica el último número de migración existente.
 - Prueba todo contra una BD local (contenedor Docker) antes de darlo por bueno.
 - Cambios pequeños y revisables; un propósito por entrega.

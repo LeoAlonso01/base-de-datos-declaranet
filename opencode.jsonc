@@ -1,0 +1,6 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // CONTEXT.md (estado y siguiente paso del proyecto) se auto-carga como
+  // instrucción en cada sesión abierta en esta carpeta, después de AGENTS.md.
+  "instructions": ["CONTEXT.md"]
+}
