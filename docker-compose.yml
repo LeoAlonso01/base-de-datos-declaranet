@@ -1,0 +1,34 @@
+# =============================================================
+# Ambiente de desarrollo local para la base de datos de
+# declaraciones patrimoniales de la UMSNH.
+#
+#   cp .env.example .env
+#   docker compose up -d
+#
+# Los valores se leen del archivo .env (nunca se commitea).
+# =============================================================
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: declaranet_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?Define POSTGRES_USER en .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      POSTGRES_DB: ${POSTGRES_DB:?Define POSTGRES_DB en .env}
+      TZ: America/Mexico_City
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Cuando existan scripts de inicialización, descomenta:
+      # - ./sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
