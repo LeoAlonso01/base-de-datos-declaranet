@@ -28,7 +28,7 @@ federal **DECLARANET** y adaptada al contexto institucional de la UMSNH:
 
 | Norma | Implicación en el modelo de datos |
 |---|---|
-| **LGRA**, arts. 32–47 | Tres tipos de declaración: **inicial** (≤ 60 días naturales tras la toma de posesión), **anual de modificación patrimonial** (mayo de cada año) y **de conclusión** (≤ 60 días tras la separación del cargo). |
+| **LGRA**, arts. 32–47 | La plataforma modela **5 tipos de trámite**: **INICIO**, **MODIFICACIÓN** y **CONCLUSIÓN** (LGRA), más **NOTA ACLARATORIA** y **CAMBIO DE DEPENDENCIA** (trámites internos UMSNH). |
 | **LGRA**, contenido | Secciones: ingresos, bienes inmuebles, vehículos, bienes muebles, inversiones y cuentas, adeudos y pasivos, participación en empresas y fideicomisos. |
 | **LGPDPPSO** | Datos personales sensibles: minimización, cifrado, acceso por roles y bitácora de consultas. |
 
@@ -81,6 +81,13 @@ erDiagram
 > (`borrador → presentada → en_revision → validada / rechazada`) la valida la propia
 > base de datos.
 
+### Sección de usuarios (implementada)
+
+Ya existen en la base las tablas `patrimonial.funcionario` y `seguridad.administrador`
+(completamente separadas), `seguridad.token_usuario` (recuperación de contraseña y
+verificación de correo) y la bitácora `auditoria.registro_evento`.
+Detalle en [`docs/modelo-conceptual.md`](docs/modelo-conceptual.md).
+
 ## 📁 Estructura del repositorio
 
 ```
@@ -94,7 +101,7 @@ base-de-datos-declaranet/
 ├── docs/
 │   ├── erd/                  # Diagramas entidad-relación
 │   └── adr/                  # Decisiones de arquitectura (ADR-NNN-*.md)
-├── sql/
+├── sql/                      # Referencia de DDL por capas (fuente de verdad: migraciones/)
 │   ├── 00_base/              # Extensiones, esquemas, roles, dominios de datos
 │   ├── 10_catalogos/         # Catálogos / listas de valores
 │   ├── 20_tablas/            # DDL por módulo funcional
@@ -146,13 +153,14 @@ docker compose exec db psql -U declaranet -d declaranet
 - [x] Convenciones del proyecto y decisión de motor (`AGENTS.md`)
 - [x] Repositorio, README y ambiente local Docker
 - [x] Archivo de contexto para retomar sesiones (`CONTEXT.md`, auto-cargado vía `opencode.jsonc`)
-- [ ] Modelo conceptual (`docs/modelo-conceptual.md`)
-- [ ] Modelo lógico y diagramas ER completos
-- [ ] `sql/00_base`: extensiones, esquemas, roles y dominios de datos
-- [ ] Catálogos normativos (tipos de declaración, tipos de bien, monedas…)
-- [ ] Tablas de dominio e historización de declaraciones
-- [ ] Auditoría por triggers y políticas RLS
-- [ ] Suite de pruebas SQL
+- [x] Modelo conceptual de la sección de usuarios (`docs/modelo-conceptual.md`)
+- [x] Migraciones `0001`–`0004`: base, catálogos, usuarios (funcionarios y administradores) y auditoría
+- [x] Pruebas de la sección de usuarios en verde (`pruebas/0001_usuarios.sql`)
+- [ ] Nombramientos, dependencias y puestos
+- [ ] Declaraciones (5 tipos de trámite), folio y acuse
+- [ ] Anexos patrimoniales (bienes, ingresos, adeudos…)
+- [ ] Roles de aplicación y políticas RLS
+- [ ] Ampliación de la suite de pruebas
 
 ## 🤝 Cómo contribuir
 

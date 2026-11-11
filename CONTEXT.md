@@ -4,7 +4,7 @@
 > Contiene el estado actual, las decisiones tomadas y el siguiente paso concreto.
 > **Actualízalo al cierre de cada sesión significativa** (ver §6).
 
-Última actualización: **2026-11-10**
+Última actualización: **2026-11-11**
 
 ## 1. ¿Qué es este proyecto?
 
@@ -18,40 +18,48 @@ Lectura complementaria:
 - [`AGENTS.md`](AGENTS.md) — convenciones, nomenclatura, reglas de migración y seguridad.
   **Obligatorio antes de tocar cualquier SQL.**
 - [`README.md`](README.md) — presentación del proyecto y puesta en marcha.
+- [`docs/modelo-conceptual.md`](docs/modelo-conceptual.md) — entidades y reglas de negocio.
 
 ## 2. Estado actual
 
-**Fase: 🚧 diseño de la arquitectura. Todavía no hay DDL ni migraciones.**
+**Fase: 🚧 diseño de la arquitectura. Sección de usuarios implementada y probada;
+declaraciones en diseño.**
 
 Terminado:
 
-- [x] `AGENTS.md`: convenciones completas del proyecto.
-- [x] `README.md` representativo del proyecto.
-- [x] Repositorio Git publicado en GitHub (rama `main`, push por SSH ya configurado).
-- [x] Ambiente local Docker con PostgreSQL 16 (`docker-compose.yml` + `.env.example`).
-- [x] Estructura de carpetas creada (`sql/`, `migraciones/`, `pruebas/`, `docs/`).
+- [x] `AGENTS.md`, `README.md`, `CONTEXT.md` y ambiente Docker local.
+- [x] Migración `0001_base.sql`: extensiones, esquemas, dominios y función de marcas de tiempo.
+- [x] Migración `0002_catalogos.sql`: catálogos iniciales (`tipo_declaracion` con 5 trámites,
+  `estado_cuenta`, `rol_administrador`, `sexo`, `tipo_token`).
+- [x] Migración `0003_usuarios.sql`: usuarios **separados** `patrimonial.funcionario` y
+  `seguridad.administrador`, más `seguridad.token_usuario`.
+- [x] Migración `0004_auditoria.sql`: auditoría genérica por triggers
+  (`auditoria.registro_evento`), sin material sensible.
+- [x] Pruebas `pruebas/0001_usuarios.sql` en verde (verificadas contra PostgreSQL 16.15).
+
+**Última migración aplicable: `0004_auditoria.sql`.** La siguiente debe llamarse `0005_*.sql`.
 
 Pendiente (en orden de ejecución):
 
-1. `docs/modelo-conceptual.md` — entidades, atributos y reglas de negocio.
-2. Modelo lógico y diagramas ER en `docs/erd/`.
-3. `sql/00_base/` + `migraciones/0001_*.sql` — extensiones, esquemas, roles y dominios de datos.
-4. Catálogos normativos (`sql/10_catalogos/` + semillas en `sql/80_semillas/`).
-5. Tablas de dominio e historización de declaraciones.
-6. Auditoría por triggers y políticas RLS.
-7. Suite de pruebas (`pruebas/`).
+1. Nombramientos, dependencias y puestos (relación funcionario ↔ cargo).
+2. Declaraciones y sus 5 tipos de trámite, con folio y acuse.
+3. Anexos patrimoniales (inmuebles, vehículos, cuentas, adeudos, empresas, fideicomisos, ingresos).
+4. Roles de aplicación y políticas RLS.
+5. Ampliación de la suite de pruebas.
 
 ## 3. Decisiones tomadas (resumen)
 
 | Tema | Decisión | Detalle |
 |---|---|---|
-| Motor de BD | PostgreSQL 16+ | Justificación completa en `AGENTS.md` §2 |
+| Motor de BD | PostgreSQL 16+ | `AGENTS.md` §2 |
 | Esquemas | `patrimonial`, `catalogos`, `seguridad`, `auditoria` | `AGENTS.md` §5 |
+| Usuarios | **Dos tablas separadas**: `funcionario` y `administrador` | `migraciones/0003_usuarios.sql` |
+| Trámites | 5 tipos en `catalogos.tipo_declaracion` | `migraciones/0002_catalogos.sql` |
+| Autenticación | `password_hash` + tokens de un solo uso (guardados como hash) | `migraciones/0003_usuarios.sql` |
+| Auditoría | Triggers AFTER, sin `password_hash` ni `token_hash` | `migraciones/0004_auditoria.sql` |
 | Nomenclatura | `snake_case`, español, tablas en singular, PK `bigint identity` | `AGENTS.md` §6 |
 | Dinero | `NUMERIC(18,2)` + FK a `catalogos.moneda` (nunca `float`) | `AGENTS.md` §6 |
-| Historización | Una declaración presentada nunca se modifica; se versiona | `AGENTS.md` §6 |
-| Seguridad | RLS + `pgcrypto` + auditoría por triggers | `AGENTS.md` §6 y §8 |
-| Migraciones | `NNNN_descripcion.sql`, transaccionales, nunca editar una aplicada | `AGENTS.md` §7 |
+| Migraciones | **Fuente de verdad ejecutable** | `docs/adr/001-migraciones-fuente-de-verdad.md` |
 
 ## 4. Entorno y comandos
 
@@ -62,6 +70,14 @@ docker compose up -d
 # Conectarse a la BD
 docker compose exec db psql -U declaranet -d declaranet
 
+# Aplicar todas las migraciones en orden
+for f in migraciones/*.sql; do
+  psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$f" || break
+done
+
+# Ejecutar las pruebas (terminan en ROLLBACK, no dejan datos)
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f pruebas/0001_usuarios.sql
+
 # Publicar cambios en GitHub (SSH ya configurado en ~/.ssh/config)
 git push origin main
 ```
@@ -69,7 +85,7 @@ git push origin main
 ## 5. Cómo continuar una sesión
 
 1. Lee este archivo y `AGENTS.md`.
-2. Revisa el último número de migración en `migraciones/` (hoy no existe ninguna).
+2. Revisa el último número de migración en `migraciones/` (hoy: `0004_auditoria.sql`).
 3. Toma el primer pendiente de §2, propón el plan al usuario y confirma antes de ejecutar.
 
 ## 6. Reglas de mantenimiento de este archivo

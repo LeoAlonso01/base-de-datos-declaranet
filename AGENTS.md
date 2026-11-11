@@ -41,10 +41,13 @@ Para un sistema con datos personales sensibles (patrimonio de servidores públic
 
 ## 3. Marco normativo (contexto obligatorio de dominio)
 
-- **Ley General de Responsabilidades Administrativas (LGRA), arts. 32–47.** Tipos de declaración:
-  1. **Inicial** — dentro de los 60 días naturales siguientes a la toma de posesión.
-  2. **Anual de modificación patrimonial** — durante el mes de mayo de cada año.
-  3. **De conclusión** — dentro de los 60 días naturales siguientes a la separación del cargo.
+- **Ley General de Responsabilidades Administrativas (LGRA), arts. 32–47.** La plataforma
+  modela **cinco tipos de trámite** (`catalogos.tipo_declaracion`):
+  1. **INICIO** — declaración inicial, dentro de los 60 días naturales siguientes a la toma de posesión.
+  2. **MODIFICACION** — declaración anual de modificación patrimonial, durante mayo de cada año.
+  3. **CONCLUSION** — dentro de los 60 días naturales siguientes a la separación del cargo.
+  4. **NOTA_ACLARATORIA** — aclaración sobre una declaración presentada (trámite interno UMSNH).
+  5. **CAMBIO_DEPENDENCIA** — cambio de adscripción o dependencia (trámite interno UMSNH).
 - Secciones típicas de contenido: datos curriculares, datos del empleo/cargo/comisión,
   ingresos, bienes inmuebles, vehículos, bienes muebles (joyas, obras de arte, colecciones),
   inversiones y cuentas bancarias, adeudos y pasivos, participación en empresas,
@@ -85,10 +88,10 @@ declaraciones-patrimoniales/
 
 | Módulo | Esquema PG | Contenido |
 |---|---|---|
-| Núcleo | `patrimonial` | funcionario, persona, dependencia, puesto, nombramiento |
+| Núcleo | `patrimonial` | funcionario (usuario), dependencia, puesto, nombramiento |
 | Declaración | `patrimonial` | declaracion, version, secciones y anexos |
-| Catálogos | `catalogos` | tipo_bien, tipo_ingreso, moneda, parentesco, nivel_estudio… |
-| Seguridad | `seguridad` | usuarios de aplicación, roles, permisos |
+| Catálogos | `catalogos` | tipo_declaracion, estado_cuenta, rol_administrador, sexo, tipo_token… |
+| Seguridad | `seguridad` | administrador (usuario), roles y tokens |
 | Auditoría | `auditoria` | bitácora de cambios y de consultas |
 
 ## 6. Convenciones de diseño
@@ -127,6 +130,9 @@ declaraciones-patrimoniales/
 
 ## 7. Convenciones de migraciones
 
+- La **fuente de verdad ejecutable** son las migraciones (`migraciones/`). La carpeta `sql/`
+  conserva material de referencia por capas y no se aplica directamente
+  (ver `docs/adr/001-migraciones-fuente-de-verdad.md`).
 - Una migración por cambio lógico: `migraciones/NNNN_descripcion.sql`, numeración
   secuencial creciente, sin huecos.
 - **Nunca edites una migración ya aplicada**: crea una nueva.
