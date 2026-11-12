@@ -43,11 +43,13 @@ Terminado:
 
 Pendiente (en orden de ejecución):
 
-1. Nombramientos, dependencias y puestos (relación funcionario ↔ cargo).
-2. Declaraciones y sus 5 tipos de trámite, con folio y acuse.
-3. Anexos patrimoniales (inmuebles, vehículos, cuentas, adeudos, empresas, fideicomisos, ingresos).
-4. Roles de aplicación y políticas RLS.
-5. Ampliación de la suite de pruebas.
+1. Catálogos adicionales que deben quedar en la base: tipo de bien, tipo de ingreso,
+   moneda, parentesco, nivel de estudio (módulo `catalogos`).
+2. Nombramientos, dependencias y puestos (relación funcionario ↔ cargo).
+3. Declaraciones y sus 5 tipos de trámite, con folio y acuse.
+4. Anexos patrimoniales (inmuebles, vehículos, cuentas, adeudos, empresas, fideicomisos, ingresos).
+5. Roles de aplicación y políticas RLS.
+6. Ampliación de la suite de pruebas.
 
 ## 3. Decisiones tomadas (resumen)
 
