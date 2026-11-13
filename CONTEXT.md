@@ -25,7 +25,7 @@ Lectura complementaria:
 **Fase: 🚧 diseño de la arquitectura. Sección de usuarios refinada (autenticación simple +
 datos 1:1 + sesión de 35 minutos); catálogo de cargos de la UMSNH con columna `categoria`;
 catálogos de Datos Generales; domicilio del declarante (nacional/extranjero) con
-aclaraciones/observaciones; declaraciones en diseño.**
+aclaraciones/observaciones; diagrama relacional completo (ERD); declaraciones en diseño.**
 
 Terminado:
 
@@ -48,6 +48,7 @@ Terminado:
 - [x] Migración `0009_domicilio_declarante.sql`: catálogos geográficos (entidad federativa,
   municipio, tipo de asentamiento, código postal, asentamiento) + tabla `patrimonial.domicilio`
   (nacional/extranjero) con `aclaraciones_observaciones`.
+- [x] Diagrama relacional completo en `docs/erd/modelo-relacional.md` (Mermaid).
 - [x] Pruebas `pruebas/0001_usuarios.sql`, `pruebas/0002_catalogos_cargos.sql`,
   `pruebas/0003_catalogos_cargos_categoria.sql`, `pruebas/0004_catalogos_datos_generales.sql` y
   `pruebas/0005_domicilio_declarante.sql` en verde.

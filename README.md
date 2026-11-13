@@ -88,6 +88,8 @@ Ya existen en la base las tablas `patrimonial.funcionario` y `seguridad.administ
 verificación de correo) y la bitácora `auditoria.registro_evento`.
 Detalle en [`docs/modelo-conceptual.md`](docs/modelo-conceptual.md).
 
+📐 **Diagrama relacional completo (ERD):** [`docs/erd/modelo-relacional.md`](docs/erd/modelo-relacional.md).
+
 ## 📁 Estructura del repositorio
 
 ```
