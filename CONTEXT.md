@@ -23,7 +23,8 @@ Lectura complementaria:
 ## 2. Estado actual
 
 **Fase: 🚧 diseño de la arquitectura. Sección de usuarios refinada (autenticación simple +
-datos 1:1 + sesión de 35 minutos); catálogo de cargos de la UMSNH agregado; declaraciones en diseño.**
+datos 1:1 + sesión de 35 minutos); catálogo de cargos de la UMSNH con columna `categoria`;
+declaraciones en diseño.**
 
 Terminado:
 
@@ -38,9 +39,12 @@ Terminado:
 - [x] Migración `0005_refactor_usuarios_datos.sql`: tablas 1:1 de datos personales/contacto/sesión,
   migración de datos existentes, eliminación de columnas redundantes, sesión ≤ 35 minutos.
 - [x] Migración `0006_catalogos_cargos.sql`: catálogo de cargos de la UMSNH (29 puestos).
-- [x] Pruebas `pruebas/0001_usuarios.sql` y `pruebas/0002_catalogos_cargos.sql` en verde.
+- [x] Migración `0007_catalogos_cargos_categoria.sql`: columna `categoria` (código de RR.HH.) +
+  sincronización idempotente de los 29 cargos.
+- [x] Pruebas `pruebas/0001_usuarios.sql`, `pruebas/0002_catalogos_cargos.sql` y
+  `pruebas/0003_catalogos_cargos_categoria.sql` en verde.
 
-**Última migración aplicable: `0006_catalogos_cargos.sql`.** La siguiente debe llamarse `0007_*.sql`.
+**Última migración aplicable: `0007_catalogos_cargos_categoria.sql`.** La siguiente debe llamarse `0008_*.sql`.
 
 Pendiente (en orden de ejecución):
 
