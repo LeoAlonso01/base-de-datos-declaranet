@@ -157,6 +157,7 @@ docker compose exec db psql -U declaranet -d declaranet
 - [x] Migraciones `0001`–`0005`: base, catálogos, usuarios (funcionarios y administradores), auditoría y datos de sesión (35 min)
 - [x] Pruebas de la sección de usuarios en verde (`pruebas/0001_usuarios.sql`)
 - [x] Catálogo de cargos de la UMSNH (`0006`) + columna `categoria` (`0007`) + pruebas (`0002`, `0003`)
+- [x] Catálogos de Datos Generales (`0008`): prefijos E.164, estado civil, países ISO, nacionalidades + alineación de `funcionario_datos` + pruebas (`0004`)
 - [ ] Nombramientos, dependencias y puestos
 - [ ] Declaraciones (5 tipos de trámite), folio y acuse
 - [ ] Anexos patrimoniales (bienes, ingresos, adeudos…)

@@ -41,15 +41,19 @@ Terminado:
 - [x] Migración `0006_catalogos_cargos.sql`: catálogo de cargos de la UMSNH (29 puestos).
 - [x] Migración `0007_catalogos_cargos_categoria.sql`: columna `categoria` (código de RR.HH.) +
   sincronización idempotente de los 29 cargos.
-- [x] Pruebas `pruebas/0001_usuarios.sql`, `pruebas/0002_catalogos_cargos.sql` y
-  `pruebas/0003_catalogos_cargos_categoria.sql` en verde.
+- [x] Migración `0008_catalogos_datos_generales.sql`: catálogos de Datos Generales
+  (prefijos telefónicos E.164, estado civil con 6 opciones, países ISO 3166-1,
+  nacionalidades) + alineación no destructiva de `funcionario_datos`.
+- [x] Pruebas `pruebas/0001_usuarios.sql`, `pruebas/0002_catalogos_cargos.sql`,
+  `pruebas/0003_catalogos_cargos_categoria.sql` y
+  `pruebas/0004_catalogos_datos_generales.sql` en verde.
 
-**Última migración aplicable: `0007_catalogos_cargos_categoria.sql`.** La siguiente debe llamarse `0008_*.sql`.
+**Última migración aplicable: `0008_catalogos_datos_generales.sql`.** La siguiente debe llamarse `0009_*.sql`.
 
 Pendiente (en orden de ejecución):
 
 1. Catálogos adicionales restantes que deben quedar en la base: tipo de bien, tipo de ingreso,
-   moneda, parentesco, nivel de estudio, etc. (el catálogo de cargos ya está: 0006).
+   moneda, parentesco, nivel de estudio, etc. (catálogos de Datos Generales y cargos ya están).
 2. Nombramientos, dependencias y puestos (relación funcionario ↔ cargo).
 3. Declaraciones y sus 5 tipos de trámite, con folio y acuse.
 4. Anexos patrimoniales (inmuebles, vehículos, cuentas, adeudos, empresas, fideicomisos, ingresos).
