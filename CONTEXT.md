@@ -23,7 +23,7 @@ Lectura complementaria:
 ## 2. Estado actual
 
 **Fase: 🚧 diseño de la arquitectura. Sección de usuarios refinada (autenticación simple +
-datos 1:1 + sesión de 35 minutos); declaraciones en diseño.**
+datos 1:1 + sesión de 35 minutos); catálogo de cargos de la UMSNH agregado; declaraciones en diseño.**
 
 Terminado:
 
@@ -37,14 +37,15 @@ Terminado:
   (`auditoria.registro_evento`), sin material sensible.
 - [x] Migración `0005_refactor_usuarios_datos.sql`: tablas 1:1 de datos personales/contacto/sesión,
   migración de datos existentes, eliminación de columnas redundantes, sesión ≤ 35 minutos.
-- [x] Pruebas `pruebas/0001_usuarios.sql` en verde (verificadas contra PostgreSQL 16.15).
+- [x] Migración `0006_catalogos_cargos.sql`: catálogo de cargos de la UMSNH (29 puestos).
+- [x] Pruebas `pruebas/0001_usuarios.sql` y `pruebas/0002_catalogos_cargos.sql` en verde.
 
-**Última migración aplicable: `0005_refactor_usuarios_datos.sql`.** La siguiente debe llamarse `0006_*.sql`.
+**Última migración aplicable: `0006_catalogos_cargos.sql`.** La siguiente debe llamarse `0007_*.sql`.
 
 Pendiente (en orden de ejecución):
 
-1. Catálogos adicionales que deben quedar en la base: tipo de bien, tipo de ingreso,
-   moneda, parentesco, nivel de estudio (módulo `catalogos`).
+1. Catálogos adicionales restantes que deben quedar en la base: tipo de bien, tipo de ingreso,
+   moneda, parentesco, nivel de estudio, etc. (el catálogo de cargos ya está: 0006).
 2. Nombramientos, dependencias y puestos (relación funcionario ↔ cargo).
 3. Declaraciones y sus 5 tipos de trámite, con folio y acuse.
 4. Anexos patrimoniales (inmuebles, vehículos, cuentas, adeudos, empresas, fideicomisos, ingresos).

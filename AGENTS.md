@@ -90,7 +90,7 @@ declaraciones-patrimoniales/
 |---|---|---|
 | Núcleo | `patrimonial` | funcionario (usuario), dependencia, puesto, nombramiento |
 | Declaración | `patrimonial` | declaracion, version, secciones y anexos |
-| Catálogos | `catalogos` | tipo_declaracion, estado_cuenta, rol_administrador, sexo, tipo_token… |
+| Catálogos | `catalogos` | tipo_declaracion, estado_cuenta, rol_administrador, sexo, tipo_token, cargo… |
 | Seguridad | `seguridad` | administrador (usuario), roles y tokens |
 | Auditoría | `auditoria` | bitácora de cambios y de consultas |
 
