@@ -127,6 +127,10 @@ declaraciones-patrimoniales/
 - RLS obligatorio en tablas con datos personales; la aplicación nunca conecta
   con superusuario.
 - Particionamiento por año fiscal para tablas de alto volumen (anexos, bitácora).
+- **Aclaraciones/Observaciones (regla permanente):** toda tabla que represente un
+  formulario o apartado de una declaración patrimonial incluye
+  `aclaraciones_observaciones text` (opcional, texto extenso). Aplica también a módulos
+  futuros. No es necesario en tablas de catálogos.
 - Sesiones: duración máxima de **35 minutos**, validada por `CHECK` en las tablas de
   datos (`funcionario_datos`, `administrador_datos`); la renovación se gestiona por token.
 

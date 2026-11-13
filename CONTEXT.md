@@ -24,7 +24,8 @@ Lectura complementaria:
 
 **Fase: 🚧 diseño de la arquitectura. Sección de usuarios refinada (autenticación simple +
 datos 1:1 + sesión de 35 minutos); catálogo de cargos de la UMSNH con columna `categoria`;
-declaraciones en diseño.**
+catálogos de Datos Generales; domicilio del declarante (nacional/extranjero) con
+aclaraciones/observaciones; declaraciones en diseño.**
 
 Terminado:
 
@@ -44,11 +45,14 @@ Terminado:
 - [x] Migración `0008_catalogos_datos_generales.sql`: catálogos de Datos Generales
   (prefijos telefónicos E.164, estado civil con 6 opciones, países ISO 3166-1,
   nacionalidades) + alineación no destructiva de `funcionario_datos`.
+- [x] Migración `0009_domicilio_declarante.sql`: catálogos geográficos (entidad federativa,
+  municipio, tipo de asentamiento, código postal, asentamiento) + tabla `patrimonial.domicilio`
+  (nacional/extranjero) con `aclaraciones_observaciones`.
 - [x] Pruebas `pruebas/0001_usuarios.sql`, `pruebas/0002_catalogos_cargos.sql`,
-  `pruebas/0003_catalogos_cargos_categoria.sql` y
-  `pruebas/0004_catalogos_datos_generales.sql` en verde.
+  `pruebas/0003_catalogos_cargos_categoria.sql`, `pruebas/0004_catalogos_datos_generales.sql` y
+  `pruebas/0005_domicilio_declarante.sql` en verde.
 
-**Última migración aplicable: `0008_catalogos_datos_generales.sql`.** La siguiente debe llamarse `0009_*.sql`.
+**Última migración aplicable: `0009_domicilio_declarante.sql`.** La siguiente debe llamarse `0010_*.sql`.
 
 Pendiente (en orden de ejecución):
 
@@ -65,6 +69,7 @@ Pendiente (en orden de ejecución):
 | Tema | Decisión | Detalle |
 |---|---|---|
 | Motor de BD | PostgreSQL 16+ | `AGENTS.md` §2 |
+| Aclaraciones/Observaciones | Campo obligatorio en tablas de formularios/apartados | `AGENTS.md` §6 |
 | Esquemas | `patrimonial`, `catalogos`, `seguridad`, `auditoria` | `AGENTS.md` §5 |
 | Usuarios | **Dos tablas separadas**: `funcionario` y `administrador` | `migraciones/0003_usuarios.sql` |
 | Datos personales | Tabla 1:1 (`funcionario_datos`, `administrador_datos`) | `migraciones/0005_refactor_usuarios_datos.sql` |

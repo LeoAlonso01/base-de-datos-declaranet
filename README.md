@@ -158,6 +158,7 @@ docker compose exec db psql -U declaranet -d declaranet
 - [x] Pruebas de la sección de usuarios en verde (`pruebas/0001_usuarios.sql`)
 - [x] Catálogo de cargos de la UMSNH (`0006`) + columna `categoria` (`0007`) + pruebas (`0002`, `0003`)
 - [x] Catálogos de Datos Generales (`0008`): prefijos E.164, estado civil, países ISO, nacionalidades + alineación de `funcionario_datos` + pruebas (`0004`)
+- [x] Domicilio del declarante (`0009`): entidades, municipios, CP, asentamientos, domicilio nacional/extranjero con aclaraciones + pruebas (`0005`)
 - [ ] Nombramientos, dependencias y puestos
 - [ ] Declaraciones (5 tipos de trámite), folio y acuse
 - [ ] Anexos patrimoniales (bienes, ingresos, adeudos…)
